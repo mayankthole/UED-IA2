@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="settings.html">Accessibility Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="results-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">🚂</div>
+                <h1>Available Trains</h1>
+            </div>
+            <div class="search-summary" role="region" aria-label="Search summary">
+                <div class="summary-icon" aria-hidden="true">📋</div>
+                <div class="summary-content">
+                    <p><strong><span class="summary-label-icon" aria-hidden="true">📍</span> From:</strong> <span id="searchOrigin">Mumbai</span></p>
+                    <p><strong><span class="summary-label-icon" aria-hidden="true">📍</span> To:</strong> <span id="searchDestination">Delhi</span></p>
+                    <p><strong><span class="summary-label-icon" aria-hidden="true">📅</span> Date:</strong> <span id="searchDate">2024-12-15</span></p>
+                    <p><strong><span class="summary-label-icon" aria-hidden="true">👥</span> Passengers:</strong> <span id="searchPassengers">2</span></p>
+                </div>
+            </div>
+
+            <div class="results-container" role="region" aria-label="Train search results">
+                <div class="results-count">
+                    <div class="count-badge">
+                        <span class="count-icon" aria-hidden="true">🚂</span>
+                        <p>Found <span id="resultCount" class="count-number">3</span> trains available</p>
+                    </div>
+                </div>
+
+                <div class="train-list" role="list" aria-label="Available trains">
+                    <article class="train-card" role="listitem" tabindex="0">
+                        <div class="train-icon-badge" aria-hidden="true">🚂</div>
+                        <div class="train-badge-premium" aria-label="Premium train">⭐ Premium</div>
+                        <div class="train-header">
+                            <div class="train-name-section">
+                                <h2>Rajdhani Express</h2>
+                                <span class="train-class-badge">Superfast</span>
+                            </div>
+                            <span class="train-number" aria-label="Train number">12345</span>
+                        </div>
+                        <div class="train-route-visual">
+                            <div class="route-point">
+                                <span class="route-city">Mumbai</span>
+                                <span class="route-time">08:00</span>
+                            </div>
+                            <div class="route-line">
+                                <div class="route-duration">
+                                    <span class="duration-icon" aria-hidden="true">⏱️</span>
+                                    <span>12h 30m</span>
+                                </div>
+                            </div>
+                            <div class="route-point">
+                                <span class="route-city">Delhi</span>
+                                <span class="route-time">20:30</span>
+                            </div>
+                        </div>
+                        <div class="train-details">
+                            <div class="train-info-grid">
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">🪑</span> Class</span>
+                                    <span class="info-value">AC 2 Tier</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">💰</span> Fare per Person</span>
+                                    <span class="info-value price">₹ 2,500</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">✅</span> Available</span>
+                                    <span class="info-value available">45 seats</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">🚂</span> Coach</span>
+                                    <span class="info-value">A2, A3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="train-actions">
+                            <button class="btn-primary" onclick="location.href='seats.html?train=Rajdhani Express&trainNo=12345'" aria-label="Select Rajdhani Express train number 12345">
+                                <span class="btn-icon" aria-hidden="true">🎫</span>
+                                Book Now
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="train-card" role="listitem" tabindex="0">
+                        <div class="train-icon-badge" aria-hidden="true">🚂</div>
+                        <div class="train-header">
+                            <div class="train-name-section">
+                                <h2>Shatabdi Express</h2>
+                                <span class="train-class-badge">Express</span>
+                            </div>
+                            <span class="train-number" aria-label="Train number">54321</span>
+                        </div>
+                        <div class="train-route-visual">
+                            <div class="route-point">
+                                <span class="route-city">Mumbai</span>
+                                <span class="route-time">10:15</span>
+                            </div>
+                            <div class="route-line">
+                                <div class="route-duration">
+                                    <span class="duration-icon" aria-hidden="true">⏱️</span>
+                                    <span>11h 15m</span>
+                                </div>
+                            </div>
+                            <div class="route-point">
+                                <span class="route-city">Delhi</span>
+                                <span class="route-time">21:30</span>
+                            </div>
+                        </div>
+                        <div class="train-details">
+                            <div class="train-info-grid">
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">🪑</span> Class</span>
+                                    <span class="info-value">AC 2 Tier</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">💰</span> Fare per Person</span>
+                                    <span class="info-value price">₹ 2,800</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">✅</span> Available</span>
+                                    <span class="info-value available">32 seats</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">🚂</span> Coach</span>
+                                    <span class="info-value">B1, B2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="train-actions">
+                            <button class="btn-primary" onclick="location.href='seats.html?train=Shatabdi Express&trainNo=54321'" aria-label="Select Shatabdi Express train number 54321">
+                                <span class="btn-icon" aria-hidden="true">🎫</span>
+                                Book Now
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="train-card" role="listitem" tabindex="0">
+                        <div class="train-icon-badge" aria-hidden="true">🚂</div>
+                        <div class="train-header">
+                            <div class="train-name-section">
+                                <h2>Duronto Express</h2>
+                                <span class="train-class-badge">Superfast</span>
+                            </div>
+                            <span class="train-number" aria-label="Train number">98765</span>
+                        </div>
+                        <div class="train-route-visual">
+                            <div class="route-point">
+                                <span class="route-city">Mumbai</span>
+                                <span class="route-time">14:30</span>
+                            </div>
+                            <div class="route-line">
+                                <div class="route-duration">
+                                    <span class="duration-icon" aria-hidden="true">⏱️</span>
+                                    <span>13h 00m</span>
+                                </div>
+                            </div>
+                            <div class="route-point">
+                                <span class="route-city">Delhi</span>
+                                <span class="route-time">03:30</span>
+                            </div>
+                        </div>
+                        <div class="train-details">
+                            <div class="train-info-grid">
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">🪑</span> Class</span>
+                                    <span class="info-value">AC 2 Tier</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">💰</span> Fare per Person</span>
+                                    <span class="info-value price">₹ 2,400</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">✅</span> Available</span>
+                                    <span class="info-value available">28 seats</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><span class="info-icon" aria-hidden="true">🚂</span> Coach</span>
+                                    <span class="info-value">C1, C2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="train-actions">
+                            <button class="btn-primary" onclick="location.href='seats.html?train=Duronto Express&trainNo=98765'" aria-label="Select Duronto Express train number 98765">
+                                <span class="btn-icon" aria-hidden="true">🎫</span>
+                                Book Now
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="back-section">
+                <a href="search.html" class="btn-secondary">← Back to Search</a>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (typeof displayUserName === 'function') displayUserName();
+            }
+        });
+    </script>
+</body>
+</html>
+

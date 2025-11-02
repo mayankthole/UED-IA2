@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seats - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="settings.html">Accessibility Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="seats-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">🪑</div>
+                <h1>Select Your Seats</h1>
+            </div>
+            
+            <div class="booking-summary" role="region" aria-label="Booking summary">
+                <div class="summary-icon" aria-hidden="true">🎫</div>
+                <h2>Booking Details</h2>
+                <div class="summary-details">
+                    <p><strong><span class="summary-label-icon" aria-hidden="true">🚂</span> Train:</strong> <span id="selectedTrain">Rajdhani Express</span> (<span id="selectedTrainNo">12345</span>)</p>
+                    <p><strong><span class="summary-label-icon" aria-hidden="true">🪑</span> Class:</strong> AC 2 Tier</p>
+                    <p><strong><span class="summary-label-icon" aria-hidden="true">📅</span> Date:</strong> <span id="selectedDate">2024-12-15</span></p>
+                    <p><strong><span class="summary-label-icon" aria-hidden="true">👥</span> Passengers:</strong> <span id="selectedPassengers">2</span></p>
+                </div>
+            </div>
+
+            <div class="seat-selection-container">
+                <div class="seat-legend" role="region" aria-label="Seat type legend">
+                    <h3>Seat Types:</h3>
+                    <ul class="legend-list" role="list">
+                        <li role="listitem">
+                            <span class="legend-item available-seat" aria-label="Available seat example"></span>
+                            <span>Available</span>
+                        </li>
+                        <li role="listitem">
+                            <span class="legend-item selected-seat" aria-label="Selected seat example"></span>
+                            <span>Selected</span>
+                        </li>
+                        <li role="listitem">
+                            <span class="legend-item occupied-seat" aria-label="Occupied seat example"></span>
+                            <span>Occupied</span>
+                        </li>
+                        <li role="listitem">
+                            <span class="legend-item disabled-seat" aria-label="Disabled seat example"></span>
+                            <span>Not Available</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="coach-container">
+                    <h3>Coach A2 - AC 2 Tier</h3>
+                    <div class="coach-layout" role="region" aria-label="Coach A2 seat layout">
+                        <div class="berth-type">
+                            <h4>Lower Berth (LB)</h4>
+                            <div class="seats-grid" role="list" aria-label="Lower berth seats">
+                                <!-- Lower berth seats -->
+                            </div>
+                        </div>
+                        <div class="berth-type">
+                            <h4>Middle Berth (MB)</h4>
+                            <div class="seats-grid" role="list" aria-label="Middle berth seats">
+                                <!-- Middle berth seats -->
+                            </div>
+                        </div>
+                        <div class="berth-type">
+                            <h4>Upper Berth (UB)</h4>
+                            <div class="seats-grid" role="list" aria-label="Upper berth seats">
+                                <!-- Upper berth seats -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selected-seats-display" role="region" aria-label="Selected seats">
+                    <h3>Selected Seats</h3>
+                    <div id="selectedSeatsList" class="selected-seats-list" aria-live="polite">
+                        <p class="no-selection">No seats selected yet</p>
+                    </div>
+                </div>
+
+                <div class="seat-actions">
+                    <button id="confirmSeatsBtn" class="btn-primary" disabled aria-describedby="confirmSeatsHelp">
+                        <span class="btn-icon" aria-hidden="true">✅</span>
+                        Confirm Seat Selection
+                    </button>
+                    <span id="confirmSeatsHelp" class="help-text">Please select at least one seat to continue</span>
+                </div>
+            </div>
+
+            <div class="back-section">
+                <a href="results.html" class="btn-secondary">← Back to Results</a>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script src="seats.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (typeof displayUserName === 'function') displayUserName();
+            }
+        });
+    </script>
+</body>
+</html>
+

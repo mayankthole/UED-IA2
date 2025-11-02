@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="dashboard.html" aria-current="page">My Dashboard</a></li>
+                <li><a href="mytickets.html">My Tickets</a></li>
+                <li><a href="history.html">Booking History</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="settings.html">Accessibility Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="dashboard-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">📊</div>
+                <h1>My Dashboard</h1>
+                <p class="page-description">Welcome back! Here's an overview of your bookings and account</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card quick-stats" role="region" aria-label="Quick statistics">
+                    <h2>Quick Stats</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon" aria-hidden="true">🎫</div>
+                            <div class="stat-value" id="totalBookings">0</div>
+                            <div class="stat-label">Total Bookings</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon" aria-hidden="true">✅</div>
+                            <div class="stat-value" id="activeTickets">0</div>
+                            <div class="stat-label">Active Tickets</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon" aria-hidden="true">📅</div>
+                            <div class="stat-value" id="upcomingTrips">0</div>
+                            <div class="stat-label">Upcoming Trips</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card quick-actions" role="region" aria-label="Quick actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-list">
+                        <a href="search.html" class="action-link">
+                            <span class="action-icon" aria-hidden="true">🔍</span>
+                            <span>Search Trains</span>
+                        </a>
+                        <a href="mytickets.html" class="action-link">
+                            <span class="action-icon" aria-hidden="true">🎫</span>
+                            <span>My Tickets</span>
+                        </a>
+                        <a href="history.html" class="action-link">
+                            <span class="action-icon" aria-hidden="true">📜</span>
+                            <span>Booking History</span>
+                        </a>
+                        <a href="profile.html" class="action-link">
+                            <span class="action-icon" aria-hidden="true">👤</span>
+                            <span>My Profile</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dashboard-card upcoming-trips" role="region" aria-label="Upcoming trips">
+                    <h2>Upcoming Trips</h2>
+                    <div id="upcomingTripsList" class="trips-list" aria-live="polite">
+                        <p class="no-data">No upcoming trips scheduled</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-card recent-bookings" role="region" aria-label="Recent bookings">
+                    <h2>Recent Bookings</h2>
+                    <div id="recentBookingsList" class="bookings-list" aria-live="polite">
+                        <p class="no-data">No recent bookings</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="login.html" aria-current="page">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="settings.html">Accessibility Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="auth-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">🔐</div>
+                <h1>Login to Your Account</h1>
+                <p class="page-description">Access your bookings, tickets, and booking history</p>
+            </div>
+            
+            <div class="auth-container">
+                <form id="loginForm" role="form" aria-label="Login form" novalidate>
+                    <div class="form-group">
+                        <label for="email">
+                            <span class="label-icon" aria-hidden="true">📧</span>
+                            Email Address <span class="required" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required 
+                            aria-required="true"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                        >
+                        <span class="error-message" id="emailError" role="alert" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">
+                            <span class="label-icon" aria-hidden="true">🔑</span>
+                            Password <span class="required" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            required 
+                            aria-required="true"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                        >
+                        <span class="error-message" id="passwordError" role="alert" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input 
+                                type="checkbox" 
+                                id="rememberMe" 
+                                name="rememberMe"
+                            >
+                            <span class="checkbox-label">Remember me</span>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <span class="btn-icon" aria-hidden="true">🚀</span>
+                            Login
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="quickDemoLogin()" aria-label="Quick login with demo account">
+                            <span class="btn-icon" aria-hidden="true">⚡</span>
+                            Quick Demo Login
+                        </button>
+                    </div>
+                </form>
+
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+                    <p><a href="#" class="link-text">Forgot your password?</a></p>
+                </div>
+            </div>
+
+            <div class="demo-credentials" role="region" aria-label="Demo credentials">
+                <h3>Demo Account (Quick Login Available):</h3>
+                <p><strong>Email:</strong> demo@example.com</p>
+                <p><strong>Password:</strong> demo123</p>
+                <p class="help-text">Click "Quick Demo Login" button above for instant access</p>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Quick demo login function
+        function quickDemoLogin() {
+            const emailField = document.getElementById('email');
+            const passwordField = document.getElementById('password');
+            const loginForm = document.getElementById('loginForm');
+            
+            if (emailField) emailField.value = 'demo@example.com';
+            if (passwordField) passwordField.value = 'demo123';
+            
+            // Clear any errors
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            if (emailError) emailError.textContent = '';
+            if (passwordError) passwordError.textContent = '';
+            
+            // Trigger form submit
+            if (loginForm) {
+                const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                loginForm.dispatchEvent(submitEvent);
+            }
+        }
+        window.quickDemoLogin = quickDemoLogin;
+        
+        // Update navigation based on login status
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (typeof displayUserName === 'function') displayUserName();
+            }
+        });
+    </script>
+</body>
+</html>
+

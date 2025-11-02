@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="settings.html">Accessibility Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="confirmation-section">
+            <div class="confirmation-header" role="region" aria-label="Booking confirmation">
+                <div class="success-icon" aria-hidden="true">✅</div>
+                <h1>Booking Confirmed!</h1>
+                <p class="confirmation-message">Your train ticket has been successfully booked. 🎉</p>
+            </div>
+
+            <div class="booking-details-card" role="region" aria-label="Booking details">
+                <h2>Booking Details</h2>
+                
+                <div class="detail-section">
+                    <h3>Booking Reference</h3>
+                    <p class="booking-ref" id="bookingRef">IR-2024-12-15-001234</p>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Train Information</h3>
+                    <dl class="detail-list">
+                        <dt>Train Name:</dt>
+                        <dd id="confirmTrainName">Rajdhani Express</dd>
+                        <dt>Train Number:</dt>
+                        <dd id="confirmTrainNo">12345</dd>
+                        <dt>Class:</dt>
+                        <dd>AC 2 Tier</dd>
+                    </dl>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Journey Details</h3>
+                    <dl class="detail-list">
+                        <dt>From:</dt>
+                        <dd id="confirmOrigin">Mumbai</dd>
+                        <dt>To:</dt>
+                        <dd id="confirmDestination">Delhi</dd>
+                        <dt>Date:</dt>
+                        <dd id="confirmDate">December 15, 2024</dd>
+                        <dt>Departure Time:</dt>
+                        <dd id="confirmDeparture">08:00</dd>
+                        <dt>Arrival Time:</dt>
+                        <dd id="confirmArrival">20:30</dd>
+                    </dl>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Passenger & Seat Information</h3>
+                    <dl class="detail-list">
+                        <dt>Number of Passengers:</dt>
+                        <dd id="confirmPassengers">2</dd>
+                        <dt>Selected Seats:</dt>
+                        <dd id="confirmSeats">LB-12, LB-13</dd>
+                        <dt>Coach:</dt>
+                        <dd>A2</dd>
+                    </dl>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Fare Summary</h3>
+                    <dl class="detail-list">
+                        <dt>Base Fare (2 passengers):</dt>
+                        <dd>₹ 5,000</dd>
+                        <dt>Service Charges:</dt>
+                        <dd>₹ 50</dd>
+                        <dt>Total Amount:</dt>
+                        <dd class="total-amount" id="confirmTotal">₹ 5,050</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="important-info" role="region" aria-label="Important information">
+                <h2>Important Information</h2>
+                <ul class="info-list">
+                    <li>Please arrive at the station at least 30 minutes before departure</li>
+                    <li>Carry a valid ID proof for all passengers</li>
+                    <li>Your booking reference number is required for ticket verification</li>
+                    <li>You can cancel your booking up to 24 hours before departure</li>
+                </ul>
+            </div>
+
+            <div class="confirmation-actions">
+                <button onclick="window.print()" class="btn-primary" aria-label="Print booking confirmation">
+                    <span class="btn-icon" aria-hidden="true">🖨️</span>
+                    Print Confirmation
+                </button>
+                <a href="dashboard.html" class="btn-primary" id="viewDashboardBtn" style="display: none;">
+                    <span class="btn-icon" aria-hidden="true">📊</span>
+                    Go to Dashboard
+                </a>
+                <a href="search.html" class="btn-secondary">
+                    <span class="btn-icon" aria-hidden="true">🎫</span>
+                    Book Another Ticket
+                </a>
+                <a href="index.html" class="btn-secondary">
+                    <span class="btn-icon" aria-hidden="true">🏠</span>
+                    Return to Home
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            const viewDashboardBtn = document.getElementById('viewDashboardBtn');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (viewDashboardBtn) viewDashboardBtn.style.display = 'inline-block';
+                if (typeof displayUserName === 'function') displayUserName();
+            }
+        });
+    </script>
+</body>
+</html>
+

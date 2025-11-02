@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="dashboard.html">My Dashboard</a></li>
+                <li><a href="mytickets.html">My Tickets</a></li>
+                <li><a href="history.html">Booking History</a></li>
+                <li><a href="profile.html" aria-current="page">Profile</a></li>
+                <li><a href="settings.html">Accessibility Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="profile-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">👤</div>
+                <h1>My Profile</h1>
+                <p class="page-description">Manage your account information and preferences</p>
+            </div>
+
+            <div class="profile-container">
+                <div class="profile-card">
+                    <h2>Personal Information</h2>
+                    <form id="profileForm" role="form" aria-label="Profile update form">
+                        <div class="form-group">
+                            <label for="profileName">
+                                <span class="label-icon" aria-hidden="true">👤</span>
+                                Full Name
+                            </label>
+                            <input 
+                                type="text" 
+                                id="profileName" 
+                                name="name"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileEmail">
+                                <span class="label-icon" aria-hidden="true">📧</span>
+                                Email Address
+                            </label>
+                            <input 
+                                type="email" 
+                                id="profileEmail" 
+                                name="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                readonly
+                                aria-readonly="true"
+                            >
+                            <span class="help-text">Email cannot be changed</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profilePhone">
+                                <span class="label-icon" aria-hidden="true">📱</span>
+                                Phone Number
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="profilePhone" 
+                                name="phone"
+                                placeholder="Enter your phone number"
+                                autocomplete="tel"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileAddress">
+                                <span class="label-icon" aria-hidden="true">📍</span>
+                                Address
+                            </label>
+                            <textarea 
+                                id="profileAddress" 
+                                name="address"
+                                rows="3"
+                                placeholder="Enter your address"
+                            ></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">
+                                <span class="btn-icon" aria-hidden="true">💾</span>
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="profile-card">
+                    <h2>Account Settings</h2>
+                    <div class="account-actions">
+                        <button class="btn-secondary" onclick="changePassword()">
+                            <span class="btn-icon" aria-hidden="true">🔑</span>
+                            Change Password
+                        </button>
+                        <button class="btn-secondary" onclick="deleteAccount()">
+                            <span class="btn-icon" aria-hidden="true">🗑️</span>
+                            Delete Account
+                        </button>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <h2>Booking Preferences</h2>
+                    <form id="preferencesForm" role="form" aria-label="Booking preferences form">
+                        <div class="form-group">
+                            <label>
+                                <input 
+                                    type="checkbox" 
+                                    id="prefNotifications" 
+                                    name="notifications"
+                                >
+                                <span class="checkbox-label">Email notifications for bookings</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input 
+                                    type="checkbox" 
+                                    id="prefSeatPref" 
+                                    name="seatPreference"
+                                >
+                                <span class="checkbox-label">Remember seat preferences</span>
+                            </label>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">
+                                <span class="btn-icon" aria-hidden="true">💾</span>
+                                Save Preferences
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Schedule - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="pnr-status.html">PNR Status</a></li>
+                <li><a href="train-schedule.html" aria-current="page">Train Schedule</a></li>
+                <li><a href="fare-calculator.html">Fare Calculator</a></li>
+                <li><a href="login.html" id="loginNavLink">Login</a></li>
+                <li><a href="signup.html" id="signupNavLink">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="page-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">📅</div>
+                <h1>Train Schedule & Running Status</h1>
+                <p class="page-description">Check train schedule and real-time running status by train number</p>
+            </div>
+
+            <form id="scheduleForm" role="form" aria-label="Train schedule search form" class="form-container">
+                <div class="form-group">
+                    <label for="trainNumber">
+                        <span class="label-icon" aria-hidden="true">🚂</span>
+                        Train Number <span class="required" aria-label="required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="trainNumber" 
+                        name="trainNumber" 
+                        required 
+                        aria-required="true"
+                        placeholder="Enter train number (e.g., 12345)"
+                        autocomplete="off"
+                    >
+                    <span class="error-message" id="trainNumberError" role="alert" aria-live="polite"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="scheduleDate">
+                        <span class="label-icon" aria-hidden="true">📅</span>
+                        Date (Optional)
+                    </label>
+                    <input 
+                        type="date" 
+                        id="scheduleDate" 
+                        name="scheduleDate"
+                        aria-describedby="date-help"
+                    >
+                    <span id="date-help" class="help-text">Leave empty for today's schedule</span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary btn-large">
+                        <span class="btn-icon" aria-hidden="true">🔍</span>
+                        Get Schedule
+                    </button>
+                    <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+
+            <div id="scheduleResult" class="schedule-result" style="display: none;" role="region" aria-live="polite">
+                <h2>Train Schedule</h2>
+                <div class="schedule-header-card">
+                    <div class="schedule-train-info">
+                        <h3 id="scheduleTrainName">Rajdhani Express</h3>
+                        <p><strong>Train Number:</strong> <span id="scheduleTrainNo">12345</span></p>
+                    </div>
+                </div>
+                
+                <div class="schedule-status-banner">
+                    <span class="status-label">Current Status:</span>
+                    <span class="status-value" id="runningStatus">Running On Time</span>
+                </div>
+
+                <div class="schedule-table-container">
+                    <table class="schedule-table" role="table" aria-label="Train schedule">
+                        <thead>
+                            <tr>
+                                <th>Station Code</th>
+                                <th>Station Name</th>
+                                <th>Arrival</th>
+                                <th>Departure</th>
+                                <th>Halt Time</th>
+                                <th>Distance</th>
+                                <th>Day</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scheduleTableBody">
+                            <!-- Schedule rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update navigation based on login status
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            const loginNavLink = document.getElementById('loginNavLink');
+            const signupNavLink = document.getElementById('signupNavLink');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (loginNavLink) loginNavLink.style.display = 'none';
+                if (signupNavLink) signupNavLink.style.display = 'none';
+                if (typeof displayUserName === 'function') displayUserName();
+            } else {
+                if (dashboardLink) dashboardLink.style.display = 'none';
+                if (userInfoHeader) userInfoHeader.style.display = 'none';
+                if (loginNavLink) loginNavLink.style.display = 'block';
+                if (signupNavLink) signupNavLink.style.display = 'block';
+            }
+
+            // Set minimum date to today
+            const scheduleDate = document.getElementById('scheduleDate');
+            if (scheduleDate) {
+                const today = new Date().toISOString().split('T')[0];
+                scheduleDate.setAttribute('min', today);
+            }
+
+            // Handle schedule form submission
+            const scheduleForm = document.getElementById('scheduleForm');
+            const trainNumberInput = document.getElementById('trainNumber');
+            const trainNumberError = document.getElementById('trainNumberError');
+            const scheduleResult = document.getElementById('scheduleResult');
+            const scheduleTableBody = document.getElementById('scheduleTableBody');
+
+            scheduleForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const trainNumber = trainNumberInput.value.trim();
+                
+                if (!trainNumber) {
+                    trainNumberError.textContent = 'Train number is required';
+                    trainNumberInput.setAttribute('aria-invalid', 'true');
+                    return;
+                }
+
+                trainNumberError.textContent = '';
+                trainNumberInput.setAttribute('aria-invalid', 'false');
+
+                // Mock schedule data
+                const mockSchedule = [
+                    { code: 'MMCT', name: 'Mumbai Central', arrival: '-', departure: '08:00', halt: '-', distance: '0', day: '1' },
+                    { code: 'BRC', name: 'Vadodara', arrival: '12:30', departure: '12:35', halt: '5 min', distance: '392', day: '1' },
+                    { code: 'RTM', name: 'Ratlam', arrival: '17:45', departure: '17:50', halt: '5 min', distance: '729', day: '1' },
+                    { code: 'KOTA', name: 'Kota', arrival: '21:20', departure: '21:25', halt: '5 min', distance: '1075', day: '1' },
+                    { code: 'NDLS', name: 'New Delhi', arrival: '06:30', departure: '-', halt: '-', distance: '1384', day: '2' }
+                ];
+
+                // Display schedule
+                document.getElementById('scheduleTrainName').textContent = 'Rajdhani Express';
+                document.getElementById('scheduleTrainNo').textContent = trainNumber;
+                document.getElementById('runningStatus').textContent = 'Running On Time';
+
+                scheduleTableBody.innerHTML = '';
+                mockSchedule.forEach(station => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><strong>${station.code}</strong></td>
+                        <td>${station.name}</td>
+                        <td>${station.arrival}</td>
+                        <td>${station.departure}</td>
+                        <td>${station.halt}</td>
+                        <td>${station.distance} km</td>
+                        <td>Day ${station.day}</td>
+                    `;
+                    scheduleTableBody.appendChild(row);
+                });
+
+                scheduleResult.style.display = 'block';
+                scheduleResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+    </script>
+</body>
+</html>
+

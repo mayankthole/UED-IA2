@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking History - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="dashboard.html">My Dashboard</a></li>
+                <li><a href="mytickets.html">My Tickets</a></li>
+                <li><a href="history.html" aria-current="page">Booking History</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="settings.html">Accessibility Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="history-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">📜</div>
+                <h1>Booking History</h1>
+                <p class="page-description">View all your past and current train bookings</p>
+            </div>
+
+            <div class="history-container">
+                <div class="history-filters" role="region" aria-label="History filters">
+                    <label for="historyYear" class="filter-label">Filter by Year:</label>
+                    <select id="historyYear" aria-label="Select year to filter">
+                        <option value="all">All Years</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                    </select>
+                </div>
+
+                <div id="historyList" class="history-list" role="list" aria-label="Booking history">
+                    <!-- History will be loaded here -->
+                </div>
+
+                <div id="noHistory" class="no-history" style="display: none;">
+                    <div class="empty-state">
+                        <div class="empty-icon" aria-hidden="true">📜</div>
+                        <h2>No Booking History</h2>
+                        <p>Your booking history will appear here once you make a booking.</p>
+                        <a href="search.html" class="btn-primary">
+                            <span class="btn-icon" aria-hidden="true">🔍</span>
+                            Search Trains
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script src="history.js"></script>
+</body>
+</html>
+

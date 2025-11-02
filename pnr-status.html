@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNR Status - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="pnr-status.html" aria-current="page">PNR Status</a></li>
+                <li><a href="train-schedule.html">Train Schedule</a></li>
+                <li><a href="fare-calculator.html">Fare Calculator</a></li>
+                <li><a href="login.html" id="loginNavLink">Login</a></li>
+                <li><a href="signup.html" id="signupNavLink">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="page-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">🎫</div>
+                <h1>Check PNR Status</h1>
+                <p class="page-description">Enter your 10-digit PNR number to check your ticket status</p>
+            </div>
+
+            <form id="pnrForm" role="form" aria-label="PNR status check form" class="form-container">
+                <div class="form-group">
+                    <label for="pnrNumber">
+                        <span class="label-icon" aria-hidden="true">🔢</span>
+                        PNR Number <span class="required" aria-label="required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="pnrNumber" 
+                        name="pnrNumber" 
+                        required 
+                        aria-required="true"
+                        placeholder="Enter 10-digit PNR number"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        autocomplete="off"
+                        aria-describedby="pnr-help"
+                    >
+                    <span id="pnr-help" class="help-text">Example: 1234567890</span>
+                    <span class="error-message" id="pnrError" role="alert" aria-live="polite"></span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary btn-large">
+                        <span class="btn-icon" aria-hidden="true">🔍</span>
+                        Check Status
+                    </button>
+                    <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+
+            <div id="pnrResult" class="pnr-result" style="display: none;" role="region" aria-live="polite">
+                <h2>PNR Status Details</h2>
+                <div class="pnr-details-card">
+                    <div class="detail-row">
+                        <span class="detail-label">PNR Number:</span>
+                        <span class="detail-value" id="resultPnr"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Train Number:</span>
+                        <span class="detail-value" id="resultTrain"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Train Name:</span>
+                        <span class="detail-value" id="resultTrainName"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">From:</span>
+                        <span class="detail-value" id="resultFrom"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">To:</span>
+                        <span class="detail-value" id="resultTo"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Date of Journey:</span>
+                        <span class="detail-value" id="resultDate"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value status-badge" id="resultStatus"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Class:</span>
+                        <span class="detail-value" id="resultClass"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Passengers:</span>
+                        <span class="detail-value" id="resultPassengers"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update navigation based on login status
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            const loginNavLink = document.getElementById('loginNavLink');
+            const signupNavLink = document.getElementById('signupNavLink');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (loginNavLink) loginNavLink.style.display = 'none';
+                if (signupNavLink) signupNavLink.style.display = 'none';
+                if (typeof displayUserName === 'function') displayUserName();
+            } else {
+                if (dashboardLink) dashboardLink.style.display = 'none';
+                if (userInfoHeader) userInfoHeader.style.display = 'none';
+                if (loginNavLink) loginNavLink.style.display = 'block';
+                if (signupNavLink) signupNavLink.style.display = 'block';
+            }
+
+            // Handle PNR form submission
+            const pnrForm = document.getElementById('pnrForm');
+            const pnrInput = document.getElementById('pnrNumber');
+            const pnrError = document.getElementById('pnrError');
+            const pnrResult = document.getElementById('pnrResult');
+
+            pnrForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const pnr = pnrInput.value.trim();
+                
+                if (!pnr) {
+                    pnrError.textContent = 'PNR number is required';
+                    pnrInput.setAttribute('aria-invalid', 'true');
+                    return;
+                }
+
+                if (!/^[0-9]{10}$/.test(pnr)) {
+                    pnrError.textContent = 'PNR must be exactly 10 digits';
+                    pnrInput.setAttribute('aria-invalid', 'true');
+                    return;
+                }
+
+                pnrError.textContent = '';
+                pnrInput.setAttribute('aria-invalid', 'false');
+
+                // Simulate PNR lookup - in real app, this would be an API call
+                const mockPnrData = {
+                    pnr: pnr,
+                    train: '12345',
+                    trainName: 'Rajdhani Express',
+                    from: 'Mumbai',
+                    to: 'Delhi',
+                    date: new Date().toLocaleDateString(),
+                    status: 'CNF',
+                    class: 'AC 2 Tier',
+                    passengers: '2'
+                };
+
+                // Display results
+                document.getElementById('resultPnr').textContent = mockPnrData.pnr;
+                document.getElementById('resultTrain').textContent = mockPnrData.train;
+                document.getElementById('resultTrainName').textContent = mockPnrData.trainName;
+                document.getElementById('resultFrom').textContent = mockPnrData.from;
+                document.getElementById('resultTo').textContent = mockPnrData.to;
+                document.getElementById('resultDate').textContent = mockPnrData.date;
+                document.getElementById('resultStatus').textContent = mockPnrData.status;
+                document.getElementById('resultClass').textContent = mockPnrData.class;
+                document.getElementById('resultPassengers').textContent = mockPnrData.passengers;
+
+                const statusBadge = document.getElementById('resultStatus');
+                statusBadge.className = 'detail-value status-badge';
+                if (mockPnrData.status === 'CNF') {
+                    statusBadge.classList.add('status-confirmed');
+                } else if (mockPnrData.status === 'WL') {
+                    statusBadge.classList.add('status-waitlist');
+                } else {
+                    statusBadge.classList.add('status-cancelled');
+                }
+
+                pnrResult.style.display = 'block';
+                pnrResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+    </script>
+</body>
+</html>
+

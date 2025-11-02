@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fare Calculator - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="pnr-status.html">PNR Status</a></li>
+                <li><a href="train-schedule.html">Train Schedule</a></li>
+                <li><a href="fare-calculator.html" aria-current="page">Fare Calculator</a></li>
+                <li><a href="login.html" id="loginNavLink">Login</a></li>
+                <li><a href="signup.html" id="signupNavLink">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="page-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">💰</div>
+                <h1>Fare Calculator</h1>
+                <p class="page-description">Calculate approximate fare for your journey</p>
+            </div>
+
+            <form id="fareForm" role="form" aria-label="Fare calculator form" class="form-container">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fareOrigin">
+                            <span class="label-icon" aria-hidden="true">📍</span>
+                            From Station <span class="required" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="fareOrigin" 
+                            name="origin" 
+                            required 
+                            aria-required="true"
+                            placeholder="Enter origin station"
+                            autocomplete="off"
+                        >
+                        <span class="error-message" id="fareOriginError" role="alert" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fareDestination">
+                            <span class="label-icon" aria-hidden="true">📍</span>
+                            To Station <span class="required" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="fareDestination" 
+                            name="destination" 
+                            required 
+                            aria-required="true"
+                            placeholder="Enter destination station"
+                            autocomplete="off"
+                        >
+                        <span class="error-message" id="fareDestinationError" role="alert" aria-live="polite"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fareTrainNumber">
+                            <span class="label-icon" aria-hidden="true">🚂</span>
+                            Train Number (Optional)
+                        </label>
+                        <input 
+                            type="text" 
+                            id="fareTrainNumber" 
+                            name="trainNumber"
+                            placeholder="Enter train number"
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fareClass">
+                            <span class="label-icon" aria-hidden="true">🪑</span>
+                            Class <span class="required" aria-label="required">*</span>
+                        </label>
+                        <select 
+                            id="fareClass" 
+                            name="class" 
+                            required 
+                            aria-required="true"
+                        >
+                            <option value="">Select Class</option>
+                            <option value="AC 1 Tier">AC 1 Tier</option>
+                            <option value="AC 2 Tier">AC 2 Tier</option>
+                            <option value="AC 3 Tier">AC 3 Tier</option>
+                            <option value="Sleeper">Sleeper</option>
+                            <option value="Second Sitting">Second Sitting</option>
+                        </select>
+                        <span class="error-message" id="fareClassError" role="alert" aria-live="polite"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="farePassengers">
+                            <span class="label-icon" aria-hidden="true">👥</span>
+                            Number of Passengers <span class="required" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="farePassengers" 
+                            name="passengers" 
+                            required 
+                            aria-required="true"
+                            min="1"
+                            max="10"
+                            value="1"
+                        >
+                        <span class="error-message" id="farePassengersError" role="alert" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fareQuota">
+                            <span class="label-icon" aria-hidden="true">🎫</span>
+                            Quota (Optional)
+                        </label>
+                        <select id="fareQuota" name="quota">
+                            <option value="General">General</option>
+                            <option value="Tatkal">Tatkal</option>
+                            <option value="Ladies">Ladies</option>
+                            <option value="Senior Citizen">Senior Citizen</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary btn-large">
+                        <span class="btn-icon" aria-hidden="true">🧮</span>
+                        Calculate Fare
+                    </button>
+                    <button type="reset" class="btn-secondary">
+                        Reset
+                    </button>
+                </div>
+            </form>
+
+            <div id="fareResult" class="fare-result" style="display: none;" role="region" aria-live="polite">
+                <h2>Fare Details</h2>
+                <div class="fare-details-card">
+                    <div class="fare-summary">
+                        <div class="fare-route">
+                            <span class="fare-station" id="resultFrom">Mumbai</span>
+                            <span class="fare-arrow" aria-hidden="true">→</span>
+                            <span class="fare-station" id="resultTo">Delhi</span>
+                        </div>
+                        <div class="fare-class" id="resultClass">AC 2 Tier</div>
+                    </div>
+                    
+                    <div class="fare-breakdown">
+                        <div class="fare-row">
+                            <span class="fare-label">Base Fare (per person):</span>
+                            <span class="fare-amount" id="baseFare">₹ 0</span>
+                        </div>
+                        <div class="fare-row">
+                            <span class="fare-label">Number of Passengers:</span>
+                            <span class="fare-amount" id="numPassengers">1</span>
+                        </div>
+                        <div class="fare-row">
+                            <span class="fare-label">Service Charges:</span>
+                            <span class="fare-amount" id="serviceCharge">₹ 0</span>
+                        </div>
+                        <div class="fare-row total-row">
+                            <span class="fare-label"><strong>Total Fare:</strong></span>
+                            <span class="fare-amount total-amount" id="totalFare">₹ 0</span>
+                        </div>
+                    </div>
+
+                    <div class="fare-note">
+                        <p><strong>Note:</strong> This is an approximate fare. Actual fare may vary based on availability, dynamic pricing, and other factors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update navigation based on login status
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            const loginNavLink = document.getElementById('loginNavLink');
+            const signupNavLink = document.getElementById('signupNavLink');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (loginNavLink) loginNavLink.style.display = 'none';
+                if (signupNavLink) signupNavLink.style.display = 'none';
+                if (typeof displayUserName === 'function') displayUserName();
+            } else {
+                if (dashboardLink) dashboardLink.style.display = 'none';
+                if (userInfoHeader) userInfoHeader.style.display = 'none';
+                if (loginNavLink) loginNavLink.style.display = 'block';
+                if (signupNavLink) signupNavLink.style.display = 'block';
+            }
+
+            // Fare calculation logic
+            const fareForm = document.getElementById('fareForm');
+            const fareResult = document.getElementById('fareResult');
+
+            const fareRates = {
+                'AC 1 Tier': { base: 3500, service: 50 },
+                'AC 2 Tier': { base: 2500, service: 40 },
+                'AC 3 Tier': { base: 1800, service: 35 },
+                'Sleeper': { base: 800, service: 30 },
+                'Second Sitting': { base: 400, service: 25 }
+            };
+
+            fareForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const origin = document.getElementById('fareOrigin').value.trim();
+                const destination = document.getElementById('fareDestination').value.trim();
+                const classType = document.getElementById('fareClass').value;
+                const passengers = parseInt(document.getElementById('farePassengers').value) || 1;
+
+                if (!origin || !destination || !classType) {
+                    alert('Please fill all required fields');
+                    return;
+                }
+
+                if (origin.toLowerCase() === destination.toLowerCase()) {
+                    document.getElementById('fareDestinationError').textContent = 'Origin and destination must be different';
+                    return;
+                }
+
+                const fareData = fareRates[classType];
+                if (!fareData) {
+                    alert('Invalid class selection');
+                    return;
+                }
+
+                const baseFarePerPerson = fareData.base;
+                const serviceChargePerPerson = fareData.service;
+                const totalBaseFare = baseFarePerPerson * passengers;
+                const totalServiceCharge = serviceChargePerPerson * passengers;
+                const totalFare = totalBaseFare + totalServiceCharge;
+
+                // Display results
+                document.getElementById('resultFrom').textContent = origin;
+                document.getElementById('resultTo').textContent = destination;
+                document.getElementById('resultClass').textContent = classType;
+                document.getElementById('baseFare').textContent = `₹ ${baseFarePerPerson.toLocaleString()}`;
+                document.getElementById('numPassengers').textContent = passengers;
+                document.getElementById('serviceCharge').textContent = `₹ ${totalServiceCharge.toLocaleString()}`;
+                document.getElementById('totalFare').textContent = `₹ ${totalFare.toLocaleString()}`;
+
+                fareResult.style.display = 'block';
+                fareResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+    </script>
+</body>
+</html>
+

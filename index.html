@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Train Booking - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html" aria-current="page">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="pnr-status.html">PNR Status</a></li>
+                <li><a href="train-schedule.html">Schedule</a></li>
+                <li><a href="fare-calculator.html">Fare Calculator</a></li>
+                <li><a href="login.html" id="loginNavLink">Login</a></li>
+                <li><a href="signup.html" id="signupNavLink">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="home-section">
+            <div class="hero-banner">
+                <div class="train-icon" aria-hidden="true">🚂</div>
+                <h1>Book Your Train Tickets</h1>
+                <p class="hero-subtitle">Easy, accessible, and convenient train booking for everyone</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Routes</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-form-container">
+                <h2>Search for Trains</h2>
+                <form id="homeSearchForm" role="form" aria-label="Train search form" novalidate>
+                    <div class="form-group">
+                        <label for="homeOrigin">
+                            <span class="label-icon" aria-hidden="true">📍</span>
+                            From Station <span class="required" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="homeOrigin" 
+                            name="origin" 
+                            required 
+                            aria-required="true"
+                            placeholder="Enter origin station"
+                            autocomplete="off"
+                        >
+                        <span class="error-message" id="homeOriginError" role="alert" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="homeDestination">
+                            <span class="label-icon" aria-hidden="true">📍</span>
+                            To Station <span class="required" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="homeDestination" 
+                            name="destination" 
+                            required 
+                            aria-required="true"
+                            placeholder="Enter destination station"
+                            autocomplete="off"
+                        >
+                        <span class="error-message" id="homeDestinationError" role="alert" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="homeDate">
+                                <span class="label-icon" aria-hidden="true">📅</span>
+                                Travel Date <span class="required" aria-label="required">*</span>
+                            </label>
+                            <input 
+                                type="date" 
+                                id="homeDate" 
+                                name="date" 
+                                required 
+                                aria-required="true"
+                                aria-describedby="homeDate-help"
+                            >
+                            <span id="homeDate-help" class="help-text">Select your travel date</span>
+                            <span class="error-message" id="homeDateError" role="alert" aria-live="polite"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="homePassengers">
+                                <span class="label-icon" aria-hidden="true">👥</span>
+                                Passengers <span class="required" aria-label="required">*</span>
+                            </label>
+                            <select 
+                                id="homePassengers" 
+                                name="passengers" 
+                                required 
+                                aria-required="true"
+                            >
+                                <option value="">Select</option>
+                                <option value="1">1 Passenger</option>
+                                <option value="2">2 Passengers</option>
+                                <option value="3">3 Passengers</option>
+                                <option value="4">4 Passengers</option>
+                                <option value="5">5 Passengers</option>
+                                <option value="6">6 Passengers</option>
+                            </select>
+                            <span class="error-message" id="homePassengersError" role="alert" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary btn-large">
+                            <span class="btn-icon" aria-hidden="true">🔍</span>
+                            Search Trains
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="offers-banner" role="region" aria-label="Special offers">
+                <div class="offer-content">
+                    <span class="offer-icon" aria-hidden="true">🎉</span>
+                    <div class="offer-text">
+                        <strong>Special Offer!</strong>
+                        <span>Get 10% off on your first booking. Use code: <strong>FIRST10</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popular-routes" role="region" aria-label="Popular routes">
+                <h2>Popular Routes</h2>
+                <p class="section-subtitle">Click on any route to quickly fill the search form</p>
+                <div class="routes-grid">
+                    <button class="route-card" onclick="fillRoute('Mumbai', 'Delhi')" aria-label="Book Mumbai to Delhi">
+                        <div class="route-cities">
+                            <span class="route-from">Mumbai</span>
+                            <span class="route-arrow" aria-hidden="true">→</span>
+                            <span class="route-to">Delhi</span>
+                        </div>
+                        <span class="route-info">3 Trains Daily</span>
+                    </button>
+                    <button class="route-card" onclick="fillRoute('Bangalore', 'Chennai')" aria-label="Book Bangalore to Chennai">
+                        <div class="route-cities">
+                            <span class="route-from">Bangalore</span>
+                            <span class="route-arrow" aria-hidden="true">→</span>
+                            <span class="route-to">Chennai</span>
+                        </div>
+                        <span class="route-info">5 Trains Daily</span>
+                    </button>
+                    <button class="route-card" onclick="fillRoute('Kolkata', 'Mumbai')" aria-label="Book Kolkata to Mumbai">
+                        <div class="route-cities">
+                            <span class="route-from">Kolkata</span>
+                            <span class="route-arrow" aria-hidden="true">→</span>
+                            <span class="route-to">Mumbai</span>
+                        </div>
+                        <span class="route-info">2 Trains Daily</span>
+                    </button>
+                    <button class="route-card" onclick="fillRoute('Delhi', 'Jaipur')" aria-label="Book Delhi to Jaipur">
+                        <div class="route-cities">
+                            <span class="route-from">Delhi</span>
+                            <span class="route-arrow" aria-hidden="true">→</span>
+                            <span class="route-to">Jaipur</span>
+                        </div>
+                        <span class="route-info">8 Trains Daily</span>
+                    </button>
+                    <button class="route-card" onclick="fillRoute('Pune', 'Mumbai')" aria-label="Book Pune to Mumbai">
+                        <div class="route-cities">
+                            <span class="route-from">Pune</span>
+                            <span class="route-arrow" aria-hidden="true">→</span>
+                            <span class="route-to">Mumbai</span>
+                        </div>
+                        <span class="route-info">12 Trains Daily</span>
+                    </button>
+                    <button class="route-card" onclick="fillRoute('Hyderabad', 'Bangalore')" aria-label="Book Hyderabad to Bangalore">
+                        <div class="route-cities">
+                            <span class="route-from">Hyderabad</span>
+                            <span class="route-arrow" aria-hidden="true">→</span>
+                            <span class="route-to">Bangalore</span>
+                        </div>
+                        <span class="route-info">4 Trains Daily</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="features-section" role="region" aria-label="Platform features">
+                <h2>Why Choose Us?</h2>
+                <div class="features-grid-home">
+                    <div class="feature-item">
+                        <span class="feature-emoji" aria-hidden="true">⚡</span>
+                        <h3>Instant Booking</h3>
+                        <p>Book tickets in seconds with our fast booking system</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-emoji" aria-hidden="true">🎫</span>
+                        <h3>E-Ticket</h3>
+                        <p>Get instant e-tickets, no need to visit station</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-emoji" aria-hidden="true">🔒</span>
+                        <h3>Secure Payment</h3>
+                        <p>100% secure and encrypted payment gateway</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-emoji" aria-hidden="true">♿</span>
+                        <h3>Accessible Design</h3>
+                        <p>Designed for everyone, including users with disabilities</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-emoji" aria-hidden="true">📱</span>
+                        <h3>Mobile Friendly</h3>
+                        <p>Works seamlessly on all devices and screen sizes</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-emoji" aria-hidden="true">🔄</span>
+                        <h3>Easy Cancellation</h3>
+                        <p>Cancel tickets easily with minimal charges</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-services" role="region" aria-label="Quick services">
+                <h2>Quick Services</h2>
+                <div class="services-grid">
+                    <a href="pnr-status.html" class="service-card">
+                        <span class="service-icon" aria-hidden="true">🎫</span>
+                        <h3>PNR Status</h3>
+                        <p>Check your ticket status with PNR number</p>
+                    </a>
+                    <a href="train-schedule.html" class="service-card">
+                        <span class="service-icon" aria-hidden="true">📅</span>
+                        <h3>Train Schedule</h3>
+                        <p>View train timings and running status</p>
+                    </a>
+                    <a href="fare-calculator.html" class="service-card">
+                        <span class="service-icon" aria-hidden="true">💰</span>
+                        <h3>Fare Calculator</h3>
+                        <p>Calculate approximate fare for your journey</p>
+                    </a>
+                    <a href="help.html" class="service-card">
+                        <span class="service-icon" aria-hidden="true">❓</span>
+                        <h3>Help & FAQ</h3>
+                        <p>Find answers to common questions</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="quick-links" role="region" aria-label="Quick links">
+                <h2>My Account</h2>
+                <div class="links-grid">
+                    <a href="dashboard.html" class="quick-link-card" id="quickDashboardLink" style="display: none;">
+                        <span class="link-icon" aria-hidden="true">📊</span>
+                        <span class="link-text">My Dashboard</span>
+                    </a>
+                    <a href="mytickets.html" class="quick-link-card" id="quickTicketsLink" style="display: none;">
+                        <span class="link-icon" aria-hidden="true">🎫</span>
+                        <span class="link-text">My Tickets</span>
+                    </a>
+                    <a href="history.html" class="quick-link-card" id="quickHistoryLink" style="display: none;">
+                        <span class="link-icon" aria-hidden="true">📜</span>
+                        <span class="link-text">Booking History</span>
+                    </a>
+                    <a href="login.html" class="quick-link-card" id="quickLoginLink">
+                        <span class="link-icon" aria-hidden="true">🔐</span>
+                        <span class="link-text">Login</span>
+                    </a>
+                    <a href="signup.html" class="quick-link-card" id="quickSignupLink">
+                        <span class="link-icon" aria-hidden="true">✨</span>
+                        <span class="link-text">Sign Up</span>
+                    </a>
+                    <a href="settings.html" class="quick-link-card">
+                        <span class="link-icon" aria-hidden="true">⚙️</span>
+                        <span class="link-text">Accessibility Settings</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Setup home page search form
+        function setupHomeSearchForm() {
+            const homeSearchForm = document.getElementById('homeSearchForm');
+            if (!homeSearchForm) return;
+
+            const origin = document.getElementById('homeOrigin');
+            const destination = document.getElementById('homeDestination');
+            const date = document.getElementById('homeDate');
+            const passengers = document.getElementById('homePassengers');
+
+            function validateField(field, errorElement) {
+                let isValid = true;
+                const value = field.value.trim();
+
+                if (field.hasAttribute('required') && !value) {
+                    errorElement.textContent = 'This field is required';
+                    errorElement.setAttribute('role', 'alert');
+                    field.setAttribute('aria-invalid', 'true');
+                    isValid = false;
+                } else {
+                    errorElement.textContent = '';
+                    field.setAttribute('aria-invalid', 'false');
+                }
+
+                if (field.type === 'date' && value) {
+                    const selectedDate = new Date(value);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    if (selectedDate < today) {
+                        errorElement.textContent = 'Please select a future date';
+                        field.setAttribute('aria-invalid', 'true');
+                        isValid = false;
+                    }
+                }
+
+                if (origin && destination && origin.value.trim() && destination.value.trim()) {
+                    if (origin.value.trim().toLowerCase() === destination.value.trim().toLowerCase()) {
+                        document.getElementById('homeDestinationError').textContent = 
+                            'Origin and destination must be different';
+                        destination.setAttribute('aria-invalid', 'true');
+                        isValid = false;
+                    }
+                }
+
+                return isValid;
+            }
+
+            homeSearchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const isOriginValid = validateField(origin, document.getElementById('homeOriginError'));
+                const isDestinationValid = validateField(destination, document.getElementById('homeDestinationError'));
+                const isDateValid = validateField(date, document.getElementById('homeDateError'));
+                const isPassengersValid = validateField(passengers, document.getElementById('homePassengersError'));
+
+                if (isOriginValid && isDestinationValid && isDateValid && isPassengersValid) {
+                    const searchData = {
+                        origin: origin.value.trim(),
+                        destination: destination.value.trim(),
+                        date: date.value,
+                        passengers: passengers.value
+                    };
+                    sessionStorage.setItem('searchData', JSON.stringify(searchData));
+                    window.location.href = 'results.html';
+                } else {
+                    const firstInvalid = [origin, destination, date, passengers].find(field => 
+                        field && field.getAttribute('aria-invalid') === 'true'
+                    );
+                    if (firstInvalid) {
+                        firstInvalid.focus();
+                    }
+                }
+            });
+        }
+
+        // Update navigation and quick links based on login status
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            const loginNavLink = document.getElementById('loginNavLink');
+            const signupNavLink = document.getElementById('signupNavLink');
+            const quickLoginLink = document.getElementById('quickLoginLink');
+            const quickSignupLink = document.getElementById('quickSignupLink');
+            const quickDashboardLink = document.getElementById('quickDashboardLink');
+            const quickTicketsLink = document.getElementById('quickTicketsLink');
+            const quickHistoryLink = document.getElementById('quickHistoryLink');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (loginNavLink) loginNavLink.style.display = 'none';
+                if (signupNavLink) signupNavLink.style.display = 'none';
+                if (quickLoginLink) quickLoginLink.style.display = 'none';
+                if (quickSignupLink) quickSignupLink.style.display = 'none';
+                if (quickDashboardLink) quickDashboardLink.style.display = 'block';
+                if (quickTicketsLink) quickTicketsLink.style.display = 'block';
+                if (quickHistoryLink) quickHistoryLink.style.display = 'block';
+                if (typeof displayUserName === 'function') displayUserName();
+            } else {
+                if (dashboardLink) dashboardLink.style.display = 'none';
+                if (userInfoHeader) userInfoHeader.style.display = 'none';
+                if (loginNavLink) loginNavLink.style.display = 'block';
+                if (signupNavLink) signupNavLink.style.display = 'block';
+                if (quickLoginLink) quickLoginLink.style.display = 'block';
+                if (quickSignupLink) quickSignupLink.style.display = 'block';
+                if (quickDashboardLink) quickDashboardLink.style.display = 'none';
+                if (quickTicketsLink) quickTicketsLink.style.display = 'none';
+                if (quickHistoryLink) quickHistoryLink.style.display = 'none';
+            }
+            
+            // Set minimum date to today
+            const dateInput = document.getElementById('homeDate');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.setAttribute('min', today);
+            }
+            
+            setupHomeSearchForm();
+        });
+
+        // Fill route in search form
+        function fillRoute(from, to) {
+            const originField = document.getElementById('homeOrigin');
+            const destinationField = document.getElementById('homeDestination');
+            if (originField) originField.value = from;
+            if (destinationField) destinationField.value = to;
+            // Focus on date field
+            const dateField = document.getElementById('homeDate');
+            if (dateField) dateField.focus();
+        }
+        window.fillRoute = fillRoute;
+    </script>
+</body>
+</html>
+

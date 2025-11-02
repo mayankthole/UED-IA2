@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & FAQ - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="pnr-status.html">PNR Status</a></li>
+                <li><a href="train-schedule.html">Train Schedule</a></li>
+                <li><a href="fare-calculator.html">Fare Calculator</a></li>
+                <li><a href="login.html" id="loginNavLink">Login</a></li>
+                <li><a href="signup.html" id="signupNavLink">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="help.html" aria-current="page">Help</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="page-section">
+            <div class="page-header">
+                <div class="page-icon" aria-hidden="true">❓</div>
+                <h1>Help & Frequently Asked Questions</h1>
+                <p class="page-description">Find answers to common questions about booking train tickets</p>
+            </div>
+
+            <div class="help-content">
+                <div class="help-section">
+                    <h2>Quick Links</h2>
+                    <div class="help-links-grid">
+                        <a href="#booking" class="help-link-card">
+                            <span class="help-link-icon" aria-hidden="true">🎫</span>
+                            <span class="help-link-text">How to Book</span>
+                        </a>
+                        <a href="#cancellation" class="help-link-card">
+                            <span class="help-link-icon" aria-hidden="true">🔄</span>
+                            <span class="help-link-text">Cancellation</span>
+                        </a>
+                        <a href="#pnr" class="help-link-card">
+                            <span class="help-link-icon" aria-hidden="true">🔍</span>
+                            <span class="help-link-text">PNR Status</span>
+                        </a>
+                        <a href="#payment" class="help-link-card">
+                            <span class="help-link-icon" aria-hidden="true">💳</span>
+                            <span class="help-link-text">Payment</span>
+                        </a>
+                        <a href="#refund" class="help-link-card">
+                            <span class="help-link-icon" aria-hidden="true">💰</span>
+                            <span class="help-link-text">Refund</span>
+                        </a>
+                        <a href="#accessibility" class="help-link-card">
+                            <span class="help-link-icon" aria-hidden="true">♿</span>
+                            <span class="help-link-text">Accessibility</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="faq-section" id="booking">
+                    <h2>Booking Tickets</h2>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            How do I book a train ticket?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-1" role="region" aria-hidden="true">
+                            <p>To book a train ticket:</p>
+                            <ol>
+                                <li>Go to the Search Trains page</li>
+                                <li>Enter your origin and destination stations</li>
+                                <li>Select your travel date and number of passengers</li>
+                                <li>Click "Search Trains" to see available trains</li>
+                                <li>Select your preferred train and seats</li>
+                                <li>Enter passenger details and complete payment</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            Can I book tickets for multiple passengers?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-2" role="region" aria-hidden="true">
+                            <p>Yes, you can book tickets for up to 6 passengers in a single booking. Simply select the number of passengers when searching for trains.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            How far in advance can I book?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-3" role="region" aria-hidden="true">
+                            <p>You can book train tickets up to 120 days in advance. General quota tickets open 120 days before the journey date, while Tatkal tickets are available one day before travel.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-section" id="cancellation">
+                    <h2>Cancellation & Refund</h2>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            How can I cancel my ticket?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-4" role="region" aria-hidden="true">
+                            <p>To cancel your ticket:</p>
+                            <ol>
+                                <li>Log in to your account</li>
+                                <li>Go to "My Tickets" section</li>
+                                <li>Find the ticket you want to cancel</li>
+                                <li>Click "Cancel Ticket" and confirm</li>
+                                <li>Refund will be processed as per cancellation rules</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            What is the cancellation charge?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-5" role="region" aria-hidden="true">
+                            <p>Cancellation charges depend on when you cancel:</p>
+                            <ul>
+                                <li><strong>48+ hours before departure:</strong> Flat ₹60 per passenger + 25% of fare</li>
+                                <li><strong>12-48 hours before:</strong> Flat ₹60 per passenger + 50% of fare</li>
+                                <li><strong>Less than 12 hours:</strong> No refund for General quota</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-section" id="pnr">
+                    <h2>PNR Status</h2>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            What is a PNR number?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-6" role="region" aria-hidden="true">
+                            <p>PNR (Passenger Name Record) is a unique 10-digit number assigned to each booking. You receive this number when you book a ticket. Use it to check your booking status, train details, and seat numbers.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            What does CNF, WL, and RAC mean?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-7" role="region" aria-hidden="true">
+                            <ul>
+                                <li><strong>CNF:</strong> Confirmed - Your seat is confirmed</li>
+                                <li><strong>WL:</strong> Waitlist - You're on the waiting list</li>
+                                <li><strong>RAC:</strong> Reservation Against Cancellation - You have a confirmed seat but berth will be allocated later</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-section" id="payment">
+                    <h2>Payment</h2>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            What payment methods are accepted?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-8" role="region" aria-hidden="true">
+                            <p>We accept:</p>
+                            <ul>
+                                <li>Credit/Debit Cards (Visa, Mastercard, RuPay)</li>
+                                <li>Net Banking</li>
+                                <li>UPI (Google Pay, PhonePe, Paytm)</li>
+                                <li>Digital Wallets</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            Is my payment secure?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-9" role="region" aria-hidden="true">
+                            <p>Yes, we use industry-standard SSL encryption to protect your payment information. All transactions are processed through secure payment gateways.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-section" id="accessibility">
+                    <h2>Accessibility Features</h2>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
+                            <span class="faq-icon" aria-hidden="true">➕</span>
+                            What accessibility features are available?
+                        </button>
+                        <div class="faq-answer" id="faq-answer-10" role="region" aria-hidden="true">
+                            <p>Our website includes:</p>
+                            <ul>
+                                <li>High contrast mode for better visibility</li>
+                                <li>Adjustable font sizes</li>
+                                <li>Dyslexia-friendly font option</li>
+                                <li>Full keyboard navigation</li>
+                                <li>Screen reader compatibility</li>
+                                <li>Clear focus indicators</li>
+                                <li>Alt text for all images</li>
+                            </ul>
+                            <p>Access the Accessibility Settings from the header to customize your experience.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-section">
+                    <h2>Still Need Help?</h2>
+                    <p>If you couldn't find the answer you're looking for, please contact our support team:</p>
+                    <div class="contact-info">
+                        <p><strong>Email:</strong> support@trainbooking.com</p>
+                        <p><strong>Phone:</strong> 1800-123-4567 (Toll-free)</p>
+                        <p><strong>Hours:</strong> 24/7 Customer Support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update navigation based on login status
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            const loginNavLink = document.getElementById('loginNavLink');
+            const signupNavLink = document.getElementById('signupNavLink');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (loginNavLink) loginNavLink.style.display = 'none';
+                if (signupNavLink) signupNavLink.style.display = 'none';
+                if (typeof displayUserName === 'function') displayUserName();
+            } else {
+                if (dashboardLink) dashboardLink.style.display = 'none';
+                if (userInfoHeader) userInfoHeader.style.display = 'none';
+                if (loginNavLink) loginNavLink.style.display = 'block';
+                if (signupNavLink) signupNavLink.style.display = 'block';
+            }
+
+            // FAQ accordion functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = document.getElementById(question.getAttribute('aria-controls'));
+                    const isExpanded = question.getAttribute('aria-expanded') === 'true';
+                    const icon = question.querySelector('.faq-icon');
+
+                    // Close all other FAQs
+                    faqQuestions.forEach(q => {
+                        if (q !== question) {
+                            q.setAttribute('aria-expanded', 'false');
+                            const a = document.getElementById(q.getAttribute('aria-controls'));
+                            if (a) {
+                                a.setAttribute('aria-hidden', 'true');
+                                a.style.display = 'none';
+                            }
+                            const i = q.querySelector('.faq-icon');
+                            if (i) i.textContent = '➕';
+                        }
+                    });
+
+                    // Toggle current FAQ
+                    question.setAttribute('aria-expanded', !isExpanded);
+                    if (answer) {
+                        answer.setAttribute('aria-hidden', isExpanded);
+                        answer.style.display = isExpanded ? 'none' : 'block';
+                        icon.textContent = isExpanded ? '➕' : '➖';
+                    }
+                });
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

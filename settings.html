@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Settings - Accessible Train Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search Trains</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="dashboard.html" id="dashboardLink" style="display: none;">Dashboard</a></li>
+                <li><a href="settings.html" aria-current="page">Accessibility Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="userInfoHeader" style="display: none;">
+            <span id="userName" class="user-name" aria-label="Logged in user"></span>
+            <button class="btn-secondary btn-small" onclick="logout()" aria-label="Logout">
+                <span class="btn-icon" aria-hidden="true">🚪</span>
+                Logout
+            </button>
+        </div>
+        <button class="settings-toggle" aria-label="Open accessibility settings panel" id="settingsToggle">
+            <span aria-hidden="true">⚙️</span> Settings
+        </button>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="settings-page-section">
+            <h1>Accessibility Settings</h1>
+            <p class="page-description">Customize the website to meet your accessibility needs. Changes are saved automatically and apply immediately.</p>
+            
+            <div class="settings-form-container">
+                <form id="settingsForm" role="form" aria-label="Accessibility settings form">
+                    <div class="settings-section">
+                        <h2>Visual Settings</h2>
+                        
+                        <div class="setting-group">
+                            <label for="fontSize">Font Size</label>
+                            <div class="setting-control">
+                                <input 
+                                    type="range" 
+                                    id="fontSize" 
+                                    name="fontSize" 
+                                    min="1" 
+                                    max="5" 
+                                    value="3"
+                                    aria-label="Font size adjustment"
+                                    aria-valuemin="1"
+                                    aria-valuemax="5"
+                                    aria-valuenow="3"
+                                >
+                                <div class="range-labels">
+                                    <span>Small</span>
+                                    <span>Default</span>
+                                    <span>Large</span>
+                                    <span>Extra Large</span>
+                                    <span>Maximum</span>
+                                </div>
+                                <div class="current-value" id="fontSizeValue" aria-live="polite">Default</div>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <label for="highContrast">High Contrast Mode</label>
+                            <div class="setting-control">
+                                <input 
+                                    type="checkbox" 
+                                    id="highContrast" 
+                                    name="highContrast"
+                                    aria-describedby="highContrastHelp"
+                                >
+                                <label for="highContrast" class="checkbox-label">
+                                    Enable high contrast colors for better visibility
+                                </label>
+                                <span id="highContrastHelp" class="help-text">
+                                    Increases color contrast for easier reading, especially helpful for low vision users
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <label for="dyslexiaFont">Dyslexia-Friendly Font</label>
+                            <div class="setting-control">
+                                <input 
+                                    type="checkbox" 
+                                    id="dyslexiaFont" 
+                                    name="dyslexiaFont"
+                                    aria-describedby="dyslexiaFontHelp"
+                                >
+                                <label for="dyslexiaFont" class="checkbox-label">
+                                    Use OpenDyslexic font
+                                </label>
+                                <span id="dyslexiaFontHelp" class="help-text">
+                                    Switches to a font designed to increase readability for users with dyslexia
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h2>Keyboard Navigation</h2>
+                        
+                        <div class="setting-group">
+                            <label>Keyboard Navigation Guide</label>
+                            <div class="keyboard-guide">
+                                <dl>
+                                    <dt><kbd>Tab</kbd></dt>
+                                    <dd>Move to next interactive element</dd>
+                                    <dt><kbd>Shift + Tab</kbd></dt>
+                                    <dd>Move to previous interactive element</dd>
+                                    <dt><kbd>Enter</kbd> or <kbd>Space</kbd></dt>
+                                    <dd>Activate buttons and links</dd>
+                                    <dt><kbd>Esc</kbd></dt>
+                                    <dd>Close dialogs and panels</dd>
+                                    <dt><kbd>Arrow Keys</kbd></dt>
+                                    <dd>Navigate within lists and groups</dd>
+                                </dl>
+                            </div>
+                            <p class="info-note">This website is 100% keyboard accessible. All features can be used without a mouse.</p>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h2>Screen Reader Support</h2>
+                        
+                        <div class="setting-group">
+                            <label>Screen Reader Features</label>
+                            <ul class="feature-list" role="list">
+                                <li role="listitem">✓ Semantic HTML structure with proper headings</li>
+                                <li role="listitem">✓ ARIA labels and roles throughout</li>
+                                <li role="listitem">✓ Alt text for all images and icons</li>
+                                <li role="listitem">✓ Skip links for main content</li>
+                                <li role="listitem">✓ Live regions for dynamic content</li>
+                                <li role="listitem">✓ Form labels and error announcements</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="settings-actions">
+                        <button type="button" class="btn-secondary" id="resetSettings" aria-label="Reset all settings to defaults">
+                            Reset to Defaults
+                        </button>
+                        <button type="button" class="btn-primary" onclick="location.href='index.html'">
+                            Save and Continue
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 id="settings-title">Accessibility Settings</h2>
+                <button class="settings-close" aria-label="Close settings panel" id="settingsClose">&times;</button>
+            </div>
+            <div class="settings-body" id="settingsContent">
+                <!-- Settings will be loaded here -->
+            </div>
+        </div>
+    </aside>
+
+    <footer role="contentinfo">
+        <p>Accessible Train Booking Prototype - Demonstration for IA2 Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('currentUser') !== null;
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            
+            if (isLoggedIn) {
+                if (dashboardLink) dashboardLink.style.display = 'block';
+                if (userInfoHeader) userInfoHeader.style.display = 'flex';
+                if (typeof displayUserName === 'function') displayUserName();
+            }
+        });
+    </script>
+</body>
+</html>
+
